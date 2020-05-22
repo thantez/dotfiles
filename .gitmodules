@@ -1,3 +1,6 @@
 [submodule "dot-doom"]
 	path = dot-doom
 	url = git@gitlab.com:thantez/dot-doom.git
+[submodule "dot-zsh"]
+	path = dot-zsh
+	url = git@gitlab.com:thantez/dot-zsh.git
