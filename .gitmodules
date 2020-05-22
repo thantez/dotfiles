@@ -1,0 +1,3 @@
+[submodule "dot-doom"]
+	path = dot-doom
+	url = git@gitlab.com:thantez/dot-doom.git
