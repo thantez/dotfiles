@@ -20,18 +20,27 @@ Plug 'alvan/vim-closetag'
 Plug 'rstacruz/sparkup'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'jiangmiao/auto-pairs'
-Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-endwise'
 Plug 'elixir-lang/vim-elixir'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'lervag/vimtex'
+Plug 'godlygeek/tabular'
+Plug 'preservim/vim-markdown'
+Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
+Plug 'itchyny/lightline.vim'
+Plug 'tricktux/pomodoro.vim'
+
 
 call plug#end()
 
+" Theme selection
+colorscheme embark
+
 " System defined section
 set number
+set termbidi
 set tabstop=2 shiftwidth=2 expandtab
 set hlsearch
 set belloff=all
@@ -43,11 +52,15 @@ set splitbelow
 set hidden
 set updatetime=300
 set signcolumn=yes
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{pomo#status_bar()}%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline=%#ErrorMsg#%{pomo#status_bar()}%#StatusLine# 
 set laststatus=2
+set splitbelow
+set splitright
 
 " User defined section
-let NERDTreeMinimalUI = 1
+"" Work With NERDTree
+let NERDTreeMinimalUI = 0
 let NERDTreeDirArrows = 1
 let NERDTreeShowHidden=1
 let mapleader = ","
@@ -56,6 +69,21 @@ let g:coc_snippet_next = '<tab>'
 let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
 let g:powerline_pycmd = 'py3'
+
+"" Pomodoro
+let g:pomodoro_time_work = 25
+let g:pomodoro_time_slack = 5
+
+""Lightline config
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
+
+"" Use python mode for folding that just shows just folded lines count
+let g:vim_markdown_folding_style_pythonic=1
+
+"" Embark settings
+let g:embark_terminal_italics = 1
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -73,6 +101,11 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+"" Lightline
+if !has('gui_running')
+  set t_Co=256
+endif
 
 " Keymaps
 " -- nerdtree
@@ -140,3 +173,6 @@ imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 xmap <leader>x  <Plug>(coc-convert-snippet)
+
+" yarn start with , and space
+nnoremap <leader>y :w<CR>:!yarn start<CR>
